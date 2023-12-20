@@ -1,11 +1,8 @@
 from typing import Optional
 from fastapi import Depends, routing, Query
 from src.products.dependencies import get_service
-from src.products.schema import ProductResponseModel, ProductSchema
+from src.products.schema import ProductResponseModel
 from src.products.abc import ABCProductService
-from src.database import get_session
-from src.products.service import ProductService
-
 
 
 router = routing.APIRouter(

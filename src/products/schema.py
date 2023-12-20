@@ -2,7 +2,7 @@
 
 
 from datetime import datetime
-from typing import Optional
+from typing import List, Optional
 from pydantic import BaseModel,ConfigDict,field_serializer
 
 from src.utils import convert_datetime_to_gmt
@@ -21,8 +21,8 @@ class ProductSchema(BaseModel):
     def serialize_dt(self, dt: datetime, _info):
         return convert_datetime_to_gmt(dt)
 
-    class Config:
-        orm_mode = True
+    class ConfigDict:
+        from_attributes = True
 
 class ProductResponseModel(BaseModel):
-    data : list[ProductSchema]
+    data : List[ProductSchema]

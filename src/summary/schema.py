@@ -2,7 +2,7 @@
 
 
 from datetime import datetime
-from typing import Optional
+from typing import List, Optional
 from pydantic import BaseModel,ConfigDict,field_serializer
 from zoneinfo import ZoneInfo
 
@@ -14,21 +14,22 @@ class SummarySchema(BaseModel):
     shop_name : str
     first_date : datetime
     last_date  : datetime
-    first_value : int
-    last_value : int
-    min_price : int
-    max_price : int
-    avg_price : int
-    min_offer : int
-    records : int
-    percent : float
+    first_value : Optional[int]
+    last_value : Optional[int]
+    min_price : Optional[int]
+    max_price : Optional[int]
+    avg_price : Optional[float]
+    min_offer : Optional[int]
+    records : Optional[int]
+    percent : Optional[float]
+    
+    class ConfigDict:
+        from_attributes = True
 
     @field_serializer('first_date', 'last_date', mode='plain' , when_used='always')
     def serialize_dt(self, dt: datetime, _info):
         return convert_datetime_to_gmt(dt)
 
-    class Config:
-        orm_mode = True
 
 class SummarytResponseModel(BaseModel):
-    data : list[SummarySchema]
+    data : List[SummarySchema]
