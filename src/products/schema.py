@@ -4,14 +4,8 @@
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel,ConfigDict,field_serializer
-from zoneinfo import ZoneInfo
 
-def convert_datetime_to_gmt(dt: datetime) -> str:
-    if not dt.tzinfo:
-        dt = dt.replace(tzinfo=ZoneInfo("UTC"))
-
-    return dt.strftime("%Y-%m-%d %H:%M:%S")
-
+from src.utils import convert_datetime_to_gmt
 
 class ProductSchema(BaseModel):
     index : int
@@ -27,8 +21,8 @@ class ProductSchema(BaseModel):
     def serialize_dt(self, dt: datetime, _info):
         return convert_datetime_to_gmt(dt)
 
-    # class Config:
-    #     orm_mode = True
+    class Config:
+        orm_mode = True
 
 class ProductResponseModel(BaseModel):
     data : list[ProductSchema]

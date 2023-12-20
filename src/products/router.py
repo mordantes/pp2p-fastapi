@@ -1,5 +1,6 @@
 from typing import Optional
 from fastapi import Depends, routing, Query
+from src.products.dependencies import get_service
 from src.products.schema import ProductResponseModel, ProductSchema
 from src.products.abc import ABCProductService
 from src.database import get_session
@@ -12,21 +13,22 @@ router = routing.APIRouter(
     tags=['Router for product search']
 )
 
-def get_service():
-    return ProductService()
-
 @router.get(
     '/',
-    response_model= ProductResponseModel
+    response_model = ProductResponseModel
 )
 def get_products(
-    db : ABCProductService = Depends(get_service),
+    service : ABCProductService = Depends(get_service),
     q : Optional[str] = Query(None),
 ):
-    data = db.get_all(q)
-    return {
-        'data' : data
-    }
+    try :
+        data = service.search(q)
+        return {
+            'data' : data
+        }
+    except BaseException as error :
+        return { 'msg' : str(error) }
+
 
 
 
