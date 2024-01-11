@@ -25,9 +25,9 @@ class SummaryService(ABCSummaryService):
             if name is not None:
                 items = name.split(" ")
                 filters = [
-                    Summary.name.contains(i)
+                    Summary.name.icontains(i)
                     if not i.startswith("!")
-                    else ~Summary.name.contains(i)
+                    else ~Summary.name.icontains(i)
                     for i in items
                 ]
                 query = query.filter(*filters)
@@ -37,13 +37,12 @@ class SummaryService(ABCSummaryService):
                 target_order = (
                     order_by.split() if isinstance(order_by, str) else order_by
                 )
-                print(target_order)
+                # print(target_order)
                 for i in target_order:
                     if i.startswith("-"):
                         query = query.order_by(getattr(Summary, i[1:]).desc())
                     else:
                         query = query.order_by(getattr(Summary, i).asc())
-            # print(query)
             data = db.execute(query).scalars().all()
 
         return data

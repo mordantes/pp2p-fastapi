@@ -7,3 +7,5 @@ __pycache__/
 
 .env.prod
 .env.dev
+.pytest_cache/
+updater.py

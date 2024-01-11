@@ -29,9 +29,9 @@ class ProductService(ABCProductService):
             if name is not None:
                 items = name.split(" ")
                 filters = [
-                    Product.name.contains(i)
+                    Product.name.icontains(i)
                     if not i.startswith("!")
-                    else ~Product.name.contains(i)
+                    else ~Product.name.icontains(i)
                     for i in items
                 ]
                 _q = _q.where(*filters)
