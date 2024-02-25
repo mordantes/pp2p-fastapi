@@ -1,15 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
+from config import DB_PWD, DB_USER, DB_HOST,DB_NAME
 
-user = 'app_dev'
-pwd = 'devpass'
+
 # sqlite_engine = create_engine("sqlite:///prods.sqlite3")
 
 sqlite_engine = create_engine(
     "sqlite:////Users/ivan322/Projects/PP2P/parser/prods.sqlite3"
 )
-engine_msql = create_engine(f"mysql+pymysql://{user}:{pwd}@localhost/pp2p?charset=utf8mb4")
+engine_msql = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PWD}@{DB_HOST}/{DB_NAME}?charset=utf8mb4")
 
 
 
