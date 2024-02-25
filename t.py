@@ -15,3 +15,5 @@
 
 # if __name__ == '__main__' :
 #     main()
+
+#  /bin/sh /opt/homebrew/opt/mysql/bin/mysqld_safe --datadir=/opt/homebrew/var/mysql

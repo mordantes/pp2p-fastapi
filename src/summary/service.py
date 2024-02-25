@@ -43,6 +43,7 @@ class SummaryService(ABCSummaryService):
                         query = query.order_by(getattr(Summary, i[1:]).desc())
                     else:
                         query = query.order_by(getattr(Summary, i).asc())
+                        
             data = db.execute(query).scalars().all()
 
         return data

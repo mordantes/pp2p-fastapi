@@ -18,7 +18,7 @@ class Summary(Base):
     avg_price = Column(Integer, unique=False, index=False, nullable=True)
     min_offer = Column(Integer, unique=False, index=False, nullable=True)
     records = Column(Integer, unique=False, index=False)
-    percent = Column(Float, unique=False, index=False, nullable=True)
+    # percent = Column(Float, unique=False, index=False, nullable=True)
 
     def to_read_model(self, instance):
         return SummarySchema(**instance)

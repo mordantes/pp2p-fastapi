@@ -18,7 +18,7 @@ class SummarySchema(BaseModel):
     avg_price: Optional[float]
     min_offer: Optional[int]
     records: Optional[int]
-    percent: Optional[float]
+    # percent: Optional[float]
 
     class ConfigDict:
         from_attributes = True
